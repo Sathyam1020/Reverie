@@ -1,2 +1,2 @@
-// db/schema.ts
+// User Schema 
 export * from './user';

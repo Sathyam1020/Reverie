@@ -16,7 +16,7 @@ const Home = () => {
       email,
       name,
       password,
-    }, {
+    }, { 
       onError: () => {
         window.alert("Something went wrong!");
       },
