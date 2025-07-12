@@ -18,9 +18,10 @@ import { Input } from '@/components/ui/input';
 import { authClient } from "@/lib/auth-client";
 import { OctagonAlertIcon } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import {FaGithub, FaGoogle} from 'react-icons/fa';
 
 const formSchema = z.object({
     name: z.string().min(1, { message: "Name is required" }),
@@ -34,9 +35,9 @@ const formSchema = z.object({
 
 const SignUpView = () => {
 
-    const router = useRouter();
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
+    const router = useRouter();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -55,10 +56,27 @@ const SignUpView = () => {
             name: data.name,
             email: data.email,
             password: data.password,
+            callbackURL: '/'
         }, {
             onSuccess: () => {
                 setLoading(false);
-                router.push("/");
+                router.push('/');
+            },
+            onError: ({ error }) => {
+                setError(error.message);
+            }
+        })
+    }
+
+    const onSubmitSocial = (provider: "github" | "google") => {
+        setError(null);
+        setLoading(true);
+        authClient.signIn.social({
+            provider: provider,
+            callbackURL: '/'
+        }, {
+            onSuccess: () => {
+                setLoading(false);
             },
             onError: ({ error }) => {
                 setError(error.message);
@@ -183,16 +201,18 @@ const SignUpView = () => {
                                         type="button"
                                         className="w-full"
                                         disabled={loading}
+                                        onClick={() => onSubmitSocial("google")}
                                     >
-                                        Google
+                                        <FaGoogle />
                                     </Button>
                                     <Button
                                         variant="outline"
                                         type="button"
                                         className="w-full"
                                         disabled={loading}
+                                        onClick={() => onSubmitSocial("github")}
                                     >
-                                        Github
+                                        <FaGithub />
                                     </Button>
                                 </div>
                                 <div className="text-center text-sm">
