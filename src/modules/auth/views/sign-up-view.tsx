@@ -153,8 +153,8 @@ const SignUpView = () => {
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
-                                        )}
-                                    />
+                                         )}
+                                    /> 
                                 </div>
                                 <div className="grid gap-3">
                                     <FormField
