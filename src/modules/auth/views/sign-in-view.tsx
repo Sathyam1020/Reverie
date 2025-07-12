@@ -21,6 +21,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import {FaGithub, FaGoogle} from 'react-icons/fa';
 
 const formSchema = z.object({
     email: z.string().email(),
@@ -55,6 +56,22 @@ const SignInView = () => {
             onError: ({ error }) => {
                 setError(error.message);
             }
+        })
+    }
+
+    const onSubmitSocial = (provider: "github" | "google") => {
+        setError(null);
+        setLoading(true);
+        authClient.signIn.social({
+            provider: provider,
+            callbackURL: '/'
+        }, {
+            onSuccess: () => {
+                setLoading(false);
+            },
+            onError: ({ error }) => {
+                setError(error.message);
+            } 
         })
     }
 
@@ -121,7 +138,7 @@ const SignInView = () => {
                                 }
                                 <Button
                                     type="submit"
-                                    className="w-full"
+                                    className="w-full bg-[#0EA5E9] hover:bg-[#0891B2] transition-all duration-200 cursor-pointer"
                                     disabled={loading}
                                 >
                                     Sign in
@@ -137,16 +154,18 @@ const SignInView = () => {
                                         type="button"
                                         className="w-full"
                                         disabled={loading}
+                                        onClick={() => onSubmitSocial("google")}
                                     >
-                                        Google
+                                        <FaGoogle />
                                     </Button>
                                     <Button
                                         variant="outline"
                                         type="button"
                                         className="w-full"
                                         disabled={loading}
+                                        onClick={() => onSubmitSocial("github")}
                                     >
-                                        Github
+                                        <FaGithub />
                                     </Button>
                                 </div>
                                 <div className="text-center text-sm">
