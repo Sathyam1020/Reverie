@@ -28,7 +28,7 @@ const ResponsiveDialog = ({
         <DrawerContent>
           <DrawerHeader>
             <DrawerTitle>{title}</DrawerTitle>
-            <DrawerDescription>{description}</DrawerDescription>
+            <DrawerDescription className='text-gray-500 text-sm'>{description}</DrawerDescription>
           </DrawerHeader>
           <div className='p-4'>
             {children}
@@ -43,7 +43,7 @@ const ResponsiveDialog = ({
         <DialogContent>
           <DialogHeader>
             <DialogTitle>{title}</DialogTitle>
-            <DialogDescription>{description}</DialogDescription>
+            <DialogDescription className='text-gray-500 text-sm'>{description}</DialogDescription>
           </DialogHeader>
           {children}
         </DialogContent>
