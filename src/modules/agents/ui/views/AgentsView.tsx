@@ -17,7 +17,7 @@ const AgentsView = () => {
     )
 }
 
-export default AgentsView; 
+export default AgentsView;
 
 export const AgentsViewLoading = () => {
     return (
