@@ -6,13 +6,13 @@ import { useTRPC } from '@/trpc/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 // import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { agentsInsertSchema } from '../schemas';
-import { AgentGetOne } from '../types';
-import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
+import { z } from 'zod';
+import { agentsInsertSchema } from '../../schemas';
+import { AgentGetOne } from '../../types';
 
 interface AgentFormProps {
     onSuccess?: () => void;
@@ -38,17 +38,17 @@ const AgentForm = ({
                     trpc.agents.getMany.queryOptions(),
                 )
 
-                if(initialValues?.id) {
+                if (initialValues?.id) {
                     await queryClient.invalidateQueries(
-                        trpc.agents.getOne.queryOptions({ id: initialValues.id}), 
+                        trpc.agents.getOne.queryOptions({ id: initialValues.id }),
                     )
                 }
 
                 onSuccess?.();
-             },
-            onError: (error) => { 
-                toast.error(error.message); 
-             },
+            },
+            onError: (error) => {
+                toast.error(error.message);
+            },
         })
     )
 
