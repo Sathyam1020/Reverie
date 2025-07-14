@@ -18,7 +18,6 @@ interface AgentFormProps {
     onSuccess?: () => void;
     onCancel?: () => void;
     initialValues?: AgentGetOne;
-
 }
 
 const AgentForm = ({
