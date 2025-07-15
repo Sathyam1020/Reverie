@@ -4,13 +4,13 @@ import { GeneratedAvatar } from "@/components/generated-avatar"
 import { Badge } from "@/components/ui/badge"
 import { ColumnDef } from "@tanstack/react-table"
 import { CircleCheckIcon, CircleXIcon, ClockArrowUpIcon, ClockFadingIcon, CornerDownRightIcon, LoaderIcon } from "lucide-react"
-import { MeetingGetMany } from "../../types"
-import humaniseDuration from "humanize-duration"; 
+import { MeetingGetMany } from "../../types" 
 import {format} from "date-fns"
 import { cn } from "@/lib/utils"
+import humanizeDuration from "humanize-duration"
 
 function formatDuration(seconds: number){
-    return humaniseDuration(seconds * 1000,{
+    return humanizeDuration(seconds * 1000,{
         largest: 1,
         round: true,
         units: ["h", "m", "s"],
