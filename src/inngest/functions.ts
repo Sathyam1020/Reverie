@@ -3,7 +3,7 @@ import { agents } from "@/db/agents";
 import { meetings } from "@/db/meetings";
 import { user } from "@/db/user";
 import { inngest } from "@/inngest/client";
-import { StreamTranscripItem } from "@/modules/meetings/types";
+import { StreamTranscriptItem } from "@/modules/meetings/types";
 import { createAgent, openai, TextMessage } from "@inngest/agent-kit";
 import { eq, inArray } from "drizzle-orm";
 import JSONL from "jsonl-parse-stringify";
@@ -40,7 +40,7 @@ export const meetingsProcessing = inngest.createFunction(
       return fetch(event.data.transcriptUrl).then((res) => res.text());
     })
     const transcript = await step.run("parse-transcript", async() => {
-      return JSONL.parse<StreamTranscripItem>(response); 
+      return JSONL.parse<StreamTranscriptItem>(response); 
     }); 
 
     const transcriptWithSpeakers = await step.run("add-speakers", async () => {

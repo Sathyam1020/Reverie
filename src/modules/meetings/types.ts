@@ -12,7 +12,7 @@ export enum MeetingStatus {
     Cancelled = "cancelled",
 }
 
-export type StreamTranscripItem = {
+export type StreamTranscriptItem = {
     speaker_id: string; 
     type: string; 
     text: string; 
