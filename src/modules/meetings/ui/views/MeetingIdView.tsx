@@ -8,13 +8,13 @@ import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-q
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'sonner';
-import MeetingIdViewHeader from '../components/MeetingIdViewHeader';
-import UpdateMeetingDialog from '../components/UpdateMeetingDialog';
-import UpcomingState from '../components/UpcomingState';
 import ActiveState from '../components/ActiveState';
 import CancelledState from '../components/CancelledState';
-import ProcessingState from '../components/ProcessingState';
 import CompletedState from '../components/CompletedState';
+import MeetingIdViewHeader from '../components/MeetingIdViewHeader';
+import ProcessingState from '../components/ProcessingState';
+import UpcomingState from '../components/UpcomingState';
+import UpdateMeetingDialog from '../components/UpdateMeetingDialog';
 
 interface Props {
     meetingId: string;
@@ -43,6 +43,9 @@ const MeetingIdView = ({ meetingId }: Props) => {
             onSuccess: async () => {
                 queryClient.invalidateQueries(
                     trpc.meetings.getMany.queryOptions({}),
+                )
+                await queryClient.invalidateQueries(
+                    trpc.premium.getFreeUsage.queryOptions(),
                 )
                 router.push('/meetings');
             },
@@ -88,12 +91,12 @@ const MeetingIdView = ({ meetingId }: Props) => {
                     isProcessing && <ProcessingState />
                 }
                 {
-                    isCompleted && <CompletedState data={data}/>
+                    isCompleted && <CompletedState data={data} />
                 }
                 {
-                    isUpcoming && <UpcomingState 
+                    isUpcoming && <UpcomingState
                         meetingId={meetingId}
-                        onCancelMeeting={() => {}}
+                        onCancelMeeting={() => { }}
                         isCancelling={false}
                     />
                 }

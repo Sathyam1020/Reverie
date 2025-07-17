@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from '../../../../../public/icons/mainLogo.svg';
+import DashboardTrial from "./DashboardTrial";
 import DashboardUserButton from "./DashboardUserButton";
 
 const firstSection = [
@@ -119,8 +120,11 @@ export const DashboardSidebar = () => {
                         </SidebarGroupContent>
                     </SidebarGroup>
                 </SidebarContent>
-                <SidebarFooter className="text-white/">
-                    <DashboardUserButton />
+                <SidebarFooter className="text-white">
+                    <div className="">
+                        <DashboardTrial />
+                        <DashboardUserButton />
+                    </div>
                 </SidebarFooter>
             </Sidebar>
         </div>
