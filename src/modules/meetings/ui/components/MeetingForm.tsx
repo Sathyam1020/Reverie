@@ -4,17 +4,17 @@ import { Input } from '@/components/ui/input';
 import { useTRPC } from '@/trpc/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-// import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import CommandSelect from '@/components/CommandSelect';
 import { GeneratedAvatar } from '@/components/generated-avatar';
 import { Button } from '@/components/ui/button';
+import NewAgentDialog from '@/modules/agents/ui/components/NewAgentDialog';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { meetingsInsertSchema } from '../../schemas';
 import { MeetingGetone } from '../../types';
-import NewAgentDialog from '@/modules/agents/ui/components/NewAgentDialog';
 
 interface MeetingFormProps {
     onSuccess?: (id?: string) => void;
@@ -29,7 +29,7 @@ const MeetingForm = ({
 }: MeetingFormProps) => {
 
     const trpc = useTRPC();
-    // const router = useRouter();
+    const router = useRouter();
     const queryClient = useQueryClient();
 
     // const [open, setOpen] = useState(false);
@@ -49,10 +49,16 @@ const MeetingForm = ({
                 await queryClient.invalidateQueries(
                     trpc.meetings.getMany.queryOptions({}),
                 )
+                await queryClient.invalidateQueries(
+                    trpc.premium.getFreeUsage.queryOptions(),
+                )
 
                 onSuccess?.(data.id);
             },
             onError: (error) => {
+                if (error.data?.code === "FORBIDDEN") {
+                    router.push('/upgrade');
+                }
                 toast.error(error.message);
             },
         })
@@ -106,7 +112,7 @@ const MeetingForm = ({
             <NewAgentDialog
                 open={openNewAgentDialog}
                 onOpenChange={setOpenNewAgentDialog}
-            /> 
+            />
             <Form {...form}>
                 <form className='space-y-4' onSubmit={form.handleSubmit(onSubmit)}>
 

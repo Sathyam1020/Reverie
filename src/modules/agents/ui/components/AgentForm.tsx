@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { useTRPC } from '@/trpc/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-// import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { useForm } from 'react-hook-form';
@@ -27,7 +27,7 @@ const AgentForm = ({
 }: AgentFormProps) => {
 
     const trpc = useTRPC();
-    // const router = useRouter();
+    const router = useRouter();
     const queryClient = useQueryClient();
 
     const createAgent = useMutation(
@@ -36,11 +36,17 @@ const AgentForm = ({
                 await queryClient.invalidateQueries(
                     trpc.agents.getMany.queryOptions({}),
                 )
+                await queryClient.invalidateQueries(
+                    trpc.premium.getFreeUsage.queryOptions(),
+                )
 
                 onSuccess?.();
             },
             onError: (error) => {
                 toast.error(error.message);
+                if(error.data?.code === "FORBIDDEN"){
+                    router.push('/upgrade');
+                }
             },
         })
     )

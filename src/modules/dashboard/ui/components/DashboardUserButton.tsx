@@ -30,7 +30,7 @@ const DashboardUserButton = () => {
     if (isMobile) {
         return (
             <Drawer>
-                <DrawerTrigger asChild className='rounded-lg border border-border-/10 p-3 w-full flex items-center justify-between bg-white/5 hover:bg-white/10 overflow-hidden transition-all duration-200 cursor-pointer gap-x-2'>
+                <DrawerTrigger asChild className='rounded-lg border border-border/10 p-3 w-full flex items-center justify-between bg-white/5 hover:bg-white/10 overflow-hidden transition-all duration-200 cursor-pointer gap-x-2'>
                     <div>
                         {
                             data.user.image ? (
@@ -65,7 +65,7 @@ const DashboardUserButton = () => {
                     <DrawerFooter className="flex gap-2 border-t border-zinc-200 dark:border-zinc-700 mt-4 pt-4">
                         <Button
                             variant="ghost"
-                            onClick={() => { }}
+                            onClick={() => { authClient.customer.portal() }}
                             className="flex items-center gap-2 px-4 py-2 text-sm text-zinc-700 dark:text-zinc-300 
                             hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors duration-200"
                         >
@@ -91,7 +91,7 @@ const DashboardUserButton = () => {
     return (
         <div>
             <DropdownMenu>
-                <DropdownMenuTrigger className='rounded-lg border border-border-/10 p-3 w-full flex items-center justify-between bg-white/5 hover:bg-white/10 overflow-hidden transition-all duration-200 cursor-pointer gap-x-2'>
+                <DropdownMenuTrigger className='rounded-lg border border-border/10 p-3 w-full flex items-center justify-between bg-white/5 hover:bg-white/10 overflow-hidden transition-all duration-200 cursor-pointer gap-x-2'>
                     {
                         data.user.image ? (
                             <div>
@@ -138,9 +138,10 @@ const DashboardUserButton = () => {
 
                     {/* Billing Item */}
                     <DropdownMenuItem
+                        onClick={() => { authClient.customer.portal() }}
                         className="group flex items-center justify-between gap-2 px-3 py-2 rounded-md text-sm text-zinc-600 dark:text-zinc-300
-      hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors duration-200
-      outline-none focus:outline-none border-0 cursor-pointer"
+                        hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors duration-200
+                        outline-none focus:outline-none border-0 cursor-pointer"
                     >
                         <span className="transition-all duration-200 group-hover:translate-x-1">
                             Billing
@@ -152,8 +153,8 @@ const DashboardUserButton = () => {
                     <DropdownMenuItem
                         onClick={onLogout}
                         className="group flex items-center justify-between gap-2 px-3 py-2 rounded-md text-sm text-zinc-600 dark:text-zinc-300
-      hover:bg-red-100 dark:hover:bg-red-900 hover:text-red-600
-      transition-colors duration-200 outline-none focus:outline-none border-0 cursor-pointer"
+                        hover:bg-red-100 dark:hover:bg-red-900 hover:text-red-600
+                        transition-colors duration-200 outline-none focus:outline-none border-0 cursor-pointer"
                     >
                         <span className="transition-all duration-200 group-hover:translate-x-1">
                             Logout
@@ -167,4 +168,4 @@ const DashboardUserButton = () => {
     )
 }
 
-export default DashboardUserButton
+export default DashboardUserButton; 
