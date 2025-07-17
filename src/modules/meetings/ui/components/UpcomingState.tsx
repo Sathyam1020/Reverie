@@ -1,6 +1,6 @@
 import EmptyState from '@/components/EmptyState';
 import { Button } from '@/components/ui/button';
-import { BanIcon, VideoIcon } from 'lucide-react';
+import { VideoIcon } from 'lucide-react';
 import Link from 'next/link';
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 
 const UpcomingState = ({
     meetingId,
-    onCancelMeeting,
+    // onCancelMeeting,
     isCancelling,
 }: Props) => {
     return (
@@ -23,7 +23,7 @@ const UpcomingState = ({
             />
 
             <div className='flex flex-col-reverse lg:flex-row lg:justify-center items-center gap-2 w-full'>
-                <Button
+                {/* <Button
                     variant='secondary'
                     className='w-full lg:w-auto'
                     onClick={onCancelMeeting}
@@ -31,7 +31,7 @@ const UpcomingState = ({
                 >
                     <BanIcon />
                     Cancel Meeting
-                </Button>
+                </Button> */}
                 <Button
                     asChild
                     className='w-full lg:w-auto'
